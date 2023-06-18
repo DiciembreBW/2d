@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-export default function () {
+export default function App() {
 	return (
 		<div className="h-screen grid grid-rows-6">
 			<div className="border row-span-4 bg-neutral-200 flex justify-center items-center">
