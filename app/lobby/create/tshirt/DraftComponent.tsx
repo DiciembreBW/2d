@@ -19,7 +19,7 @@ export default function DraftComponent({}: Props) {
 			<div className="grid grid-cols-1 content-center gap-2">
 				<div className="">
 					<div className="flex justify-center items-center aspect-[3/4]">
-						<text className="text-3xl font-bold">Preview</text>
+						<div className="text-3xl font-bold">Preview</div>
 					</div>
 				</div>
 

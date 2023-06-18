@@ -5,6 +5,123 @@ type Props = {};
 export default function page({}: Props) {
 	return <div>page</div>;
 }
+
+type OnPart = {
+	design?: string;
+	color?: string;
+};
+
+type Part = {
+	material: string;
+	on_part?: OnPart;
+};
+
+// sleeve
+type Concave = {
+	ragular?: OnPart;
+	curve?: OnPart;
+};
+
+type SleeveType = {
+	short?: OnPart;
+	long?: OnPart;
+	sleeveless?: OnPart;
+	concave?: Concave;
+};
+
+// neck
+type Neck = {
+	round?: Part;
+	collar?: Part;
+	v_neck?: Part;
+	square_neck?: Part;
+};
+
+// sleeve type
+type Sleeves = {
+	material: string;
+	left: OnPart;
+	right: OnPart;
+	sleeve_type: SleeveType;
+};
+
+// body type
+type Bodies = {
+	material: string;
+	front: OnPart;
+	back: OnPart;
+};
+
+// *** Shirt Type
+type ShirtType = {
+	body: Bodies;
+	sleeves: Sleeves;
+	neck: Neck;
+};
+
+const t_shirt_short_sleeve: ShirtType = {
+	body: {
+		material: "",
+		front: {},
+		back: {},
+	},
+
+	sleeves: {
+		material: "",
+		sleeve_type: {concave: {}},
+		left: {},
+		right: {},
+	},
+	neck: {round: {material: ""}},
+};
+
+const t_shirt_long_sleeve: ShirtType = {
+	body: {
+		material: "",
+		back: {},
+		front: {},
+	},
+	sleeves: {
+		material: "",
+		left: {},
+		right: {},
+		sleeve_type: {long: {}},
+	},
+	neck: {round: {material: ""}},
+};
+
+// const polo_short: ShirtType = {
+// 	front: {material: ""},
+// 	back: {material: ""},
+// 	neck: {collar: {material: ""}},
+// 	sleeve_right: {short: {material: ""}},
+// 	sleeve_left: {short: {material: ""}},
+// };
+
+// const polo_long: ShirtType = {
+// 	front: {material: ""},
+// 	back: {material: ""},
+// 	neck: {collar: {material: ""}},
+// 	sleeve_right: {long: {material: ""}},
+// 	sleeve_left: {long: {material: ""}},
+// };
+
+// const sleevless: ShirtType = {
+// 	front: {material: ""},
+// 	back: {material: ""},
+// 	neck: {round: {material: ""}},
+// 	sleeve_left: {sleeveless: {material: ""}},
+// 	sleeve_right: {sleeveless: {material: ""}},
+// };
+
+// const tangtop_concave_curve: ShirtType = {
+// 	front: {material: ""},
+// 	back: {material: ""},
+// 	neck: {square_neck: {material: ""}},
+// 	sleeve_left: {concave: {curve: {material: ""}}},
+// 	sleeve_right: {concave: {curve: {material: ""}}},
+// };
+
 // "use client";
 // import React, {useEffect, useState} from "react";
 // import firebase from "@/libs/firebase/firebase";

@@ -13,7 +13,7 @@
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.15",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.4",
+    "@mui/material": "^5.13.5",
     "@react-three/drei": "^9.69.2",
     "@react-three/fiber": "^8.13.0",
     "@types/node": "20.2.3",
