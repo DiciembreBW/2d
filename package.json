@@ -9,17 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@headlessui/react": "^1.7.15",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.4",
+    "@react-three/drei": "^9.69.2",
+    "@react-three/fiber": "^8.13.0",
     "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "18.2.4",
+    "@types/three": "^0.152.0",
     "autoprefixer": "10.4.14",
+    "chance": "^1.1.11",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
+    "firebase": "^9.22.2",
     "next": "13.4.3",
     "postcss": "8.4.23",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "3.3.2",
+    "three": "^0.152.2",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/chance": "^1.1.3"
   }
 }
