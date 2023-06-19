@@ -1,16 +1,18 @@
 "use client";
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
 import {MaterialType} from "../PropType";
 import {Dialog} from "@headlessui/react";
-import {
-	Add,
-	AddIcCall,
-	AddIcCallOutlined,
-	ClearOutlined,
-	CreateOutlined,
-	MoreHorizOutlined,
-	Save,
-} from "@mui/icons-material";
+import TemplateDialog from "@/libs/TemplateDialog";
+// import {
+// 	Add,
+// 	AddIcCall,
+// 	AddIcCallOutlined,
+// 	ClearOutlined,
+// 	Close,
+// 	CreateOutlined,
+// 	MoreHorizOutlined,
+// 	Save,
+// } from "@mui/icons-material";
 
 type Props = {};
 
@@ -22,27 +24,32 @@ export default function MaterialPage({}: Props) {
 	]);
 	const [materials, setMaterial] = Material;
 
+	function saveMaterial(value: MaterialType) {
+		setMaterial([value, ...materials]);
+	}
+
+	function penddingSaveMaterialDetail(value: MaterialType) {
+		console.log(value);
+	}
+
+	function deleteMaterial(index: number) {
+		const resault = materials.filter((value, i) => i != index);
+		setMaterial(resault);
+	}
+
 	return (
 		<div className="grid grid-cols-1">
-			{/* <div className="bg-neutral-700/50 px-3 py-3 my-2">
-				value
-				<pre>{JSON.stringify(value, null, 3)}</pre>
-			</div> */}
 			<div className="bg-neutral-700/50 px-3 py-2 my-2 rounded">
 				<div className="py-1 flex justify-between text-lime-400">
 					<div>Material</div>
 
-					<div className="ring ring-lime-400 rounded-full aspect-square w-6 flex justify-center items-center">
-						<DialogCreate Material={Material}>
-							{/* <svg className=""></svg> */}
-							{/* <div</div> */}
-							{/* <svg> */}
-							<Add />
-							{/* </svg> */}
-						</DialogCreate>
-					</div>
+					<CreateMaterial resault={saveMaterial}>
+						<div className="ring ring-lime-400 rounded-full aspect-square w-6 flex justify-center items-center">
+							+
+						</div>
+					</CreateMaterial>
 				</div>
-				{/* <pre> {JSON.stringify(materials, null, 3)}</pre> */}
+
 				{materials.map((el, index) => (
 					<div
 						key={index}
@@ -54,7 +61,10 @@ export default function MaterialPage({}: Props) {
 
 						<div className="">
 							<div>
-								<MoreHorizOutlined />
+								<ReadMaterialDetail resault={deleteMaterial} element={el} index={index}>
+									{/* <MoreHorizOutlined /> */}
+									...
+								</ReadMaterialDetail>
 							</div>
 						</div>
 					</div>
@@ -64,103 +74,92 @@ export default function MaterialPage({}: Props) {
 	);
 }
 
-function DialogCreate({
-	children,
-	Material: [materials, setMaterial],
-}: {
-	children?: React.ReactNode;
-	Material: [MaterialType[], Function];
-}) {
-	const [isOpen, setIsopen] = useState(false);
-	function openIt() {
-		setIsopen(true);
-	}
+const ReadMaterialDetail = TemplateDialog<MaterialType>({
+	penddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+		function onremove() {
+			props.resault(props.index);
+			setIsOpen(false);
+		}
+		return (
+			<div className="grid grid-cols-1 gap-2">
+				<div className="text-xl text-lime-400">"{element.name}"</div>
+				<div className="text-neutral-200/50">{element.description}</div>
+				<div className="flex justify-center pt-6 gap-2">
+					<button
+						className="px-2 py-1 border border-lime-400 text-lime-400"
+						onClick={() => setIsOpen(false)}>
+						x
+					</button>
 
-	const [value, setValue] = useState<MaterialType>({
-		name: "",
-		description: "",
-	});
-
-	const onchange = (
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-		key_name: string
-	): void => {
-		setValue((data) => {
-			return {...data, [key_name]: e.target.value};
-		});
-	};
-
-	function onclick(): void {
-		//   push data into material
-		setMaterial([value, ...materials]);
-
-		//   reset data
-		setValue({name: "", description: ""});
-
-		// close Dialog
-		setIsopen(false);
-	}
-	return (
-		<>
-			<button
-				onClick={() => {
-					openIt();
-				}}>
-				{children}
-			</button>
-
-			<Dialog open={isOpen} onClose={() => setIsopen(false)}>
-				<div className="relative z-50">
-					<Dialog.Panel className="fixed bg-neutral-800 inset-0 h-screen flex justify-center items-center text-neutral-200">
-						<div className="basis-3/4 h-1/2">
-							<div className="px-3 py-2 bg-neutral-700/50 rounded-lg flex flex-col h-full">
-								<div className="text-center text-lime-400">Create Material</div>
-								<div className=" my-2">
-									<input
-										type="text"
-										className="w-full p-3  bg-neutral-800/50 focus:outline-none"
-										placeholder="material name"
-										value={value.name}
-										onChange={(e) => onchange(e, "name")}
-									/>
-								</div>
-								<div className="my-2 h-full">
-									<textarea
-										className="w-full p-3  h-full bg-neutral-800/50 focus:outline-none"
-										placeholder="material description"
-										onChange={(e) => onchange(e, "description")}
-										value={value.description}></textarea>
-								</div>
-								<div className="flex justify-center px3- py-2 gap-3">
-									<button
-										className="px-3 py-2 shadow border border-lime-400 text-lime-400 rounded"
-										onClick={() => setIsopen(false)}>
-										{/* ยกเลิก */}
-										<ClearOutlined />
-									</button>
-									<button
-										className="px-3 py-2 shadow bg-lime-400 text-neutral-800 rounded"
-										onClick={() => onclick()}>
-										{/* บันทึก */}
-										<Save />
-									</button>
-								</div>
-							</div>
-						</div>
-
-						{/* <div className="flex justify-between gap-3">
-							<button
-								className="px-3 py-3 border border-lime-400 text-lime-400 rounded"
-								onClick={() => setIsopen(false)}>
-								X
-							</button>
-							<button className="bg-lime-400 text-neutral-800 px-3 py-2 rounded">
-								001
-							</button>
-						</div> */}
-					</Dialog.Panel>
+					<button
+						className="px-2 py-1 border border-lime-400 text-lime-400"
+						onClick={() => onremove()}>
+						Remove
+					</button>
 				</div>
-			</Dialog>
-		</>
-	);
-}
+			</div>
+		);
+	},
+});
+
+const CreateMaterial = TemplateDialog({
+	penddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+		const [value, setValue] = useState<MaterialType>({
+			name: "",
+			description: "",
+		});
+
+		function onsave() {
+			props.resault(value);
+			setValue({description: "", name: ""});
+			setIsOpen(false);
+		}
+
+		const onchange = (
+			e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+			key_name: string
+		): void => {
+			setValue((data) => {
+				return {...data, [key_name]: e.target.value};
+			});
+		};
+
+		return (
+			<div className="px-3 py-2">
+				<div className="text-center text-lime-400">Create Material</div>
+				<div className=" my-2">
+					<input
+						type="text"
+						className="w-full p-3  bg-neutral-800/50 focus:outline-none"
+						placeholder="material name"
+						value={value.name}
+						onChange={(e) => onchange(e, "name")}
+					/>
+				</div>
+				<div className="my-2 h-full">
+					<textarea
+						className="w-full p-3  h-full bg-neutral-800/50 focus:outline-none"
+						placeholder="material description"
+						onChange={(e) => onchange(e, "description")}
+						value={value.description}></textarea>
+				</div>
+				<div className="flex justify-center px3- py-2 gap-3">
+					<button
+						className="px-3 py-2 shadow border border-lime-400 text-lime-400 rounded"
+						onClick={() => setIsOpen(false)}>
+						{/* ยกเลิก */}
+						{/* <ClearOutlined /> */}X
+					</button>
+					<button
+						className="px-3 py-2 shadow bg-lime-400 text-neutral-800 rounded"
+						onClick={() => onsave()}>
+						{/* บันทึก */}
+						{/* <Save /> */} Save
+					</button>
+				</div>
+			</div>
+		);
+	},
+});
+
+// modal libs
