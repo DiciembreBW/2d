@@ -19,9 +19,9 @@ type PropsRenderJSX = {
 // };
 
 export default function TemplateDialogM<T>({
-	penddingCallbackDialog,
+	PenddingCallbackDialog,
 }: {
-	penddingCallbackDialog: (
+	PenddingCallbackDialog: (
 		props: PropsRenderJSX,
 		element: T,
 		dialogState: [boolean, Function]
@@ -44,7 +44,7 @@ export default function TemplateDialogM<T>({
 							<div className="wrapper">
 								{/* pendding dialog */}
 								<div className="px-3 py-2 bg-neutral-700/50 rounded text-neutral-200">
-									{penddingCallbackDialog(props, props.element, [isOpen, setIsOpen])}
+									{PenddingCallbackDialog(props, props.element, [isOpen, setIsOpen])}
 								</div>
 							</div>
 						</Dialog.Panel>

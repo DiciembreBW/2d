@@ -75,7 +75,7 @@ export default function MaterialPage({}: Props) {
 }
 
 const ReadMaterialDetail = TemplateDialog<MaterialType>({
-	penddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
 		function onremove() {
 			props.resault(props.index);
 			setIsOpen(false);
@@ -103,7 +103,7 @@ const ReadMaterialDetail = TemplateDialog<MaterialType>({
 });
 
 const CreateMaterial = TemplateDialog({
-	penddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
 		const [value, setValue] = useState<MaterialType>({
 			name: "",
 			description: "",
