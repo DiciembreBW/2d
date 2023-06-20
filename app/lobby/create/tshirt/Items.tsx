@@ -2,6 +2,8 @@ import TemplateArrayObject from "@/libs/TemplateArrayObject";
 import {DraftType, ShirtProps} from "./props";
 import {InputConfirm} from "@/components/ConfirmComponent";
 import FocusElement from "@/libs/FocusElement";
+import TemplateDialog from "@/libs/TemplateDialog";
+import {useState} from "react";
 
 export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 	<div key={index}>
@@ -23,11 +25,16 @@ export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 						}}>
 						-
 					</button>
-					<div>
-						<StepperItem
+					<div className="w-9">
+						{/* <StepperItem
 							el={el}
 							onchange={(value: number) => features.changeInt("amont", value, index)}
-						/>
+						/> */}
+						<ValueHandler
+							resault={(value: number) => features.changeInt("amont", value, index)}
+							element={el}>
+							{el.amont}
+						</ValueHandler>
 					</div>
 					<button
 						className="border h-full aspect-square rounded-full"
@@ -70,3 +77,47 @@ function StepperItem({el, onchange}: {el: ShirtProps; onchange: Function}) {
 		</>
 	);
 }
+
+type Value = {
+	amont: number;
+};
+
+const ValueHandler = TemplateDialog<ShirtProps>({
+	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+		const [amont, setAmont] = useState(element.amont);
+		function onclick() {
+			// handle respone data
+			props.resault(amont);
+
+			// close dialog
+			setIsOpen(false);
+		}
+		return (
+			<div className="grid grid-cols-1 text-center py-3">
+				<div className="text-2xl">{element.label}</div>
+				<div className="text-neutral-200/50">
+					<div> รอบอก {element.chest} นิ้ว</div>
+					<div> ความยาว {element.length} นิ้ว</div>
+				</div>
+				<div className="py-2">
+					<input
+						type="text"
+						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2"
+						value={amont}
+						onChange={(e) => setAmont(parseInt(e.target.value))}
+					/>
+				</div>
+				<div className="flex gap-3 justify-center pt-2">
+					<button className="border border-lime-400 text-lime-400 px-3 py-2 rounded">
+						X
+					</button>
+					<button
+						className="bg-lime-400 text-neutral-800 px-3 py-2 rounded"
+						onClick={onclick}>
+						Save
+					</button>
+				</div>
+			</div>
+		);
+	},
+});

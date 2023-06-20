@@ -18,7 +18,7 @@ type PropsRenderJSX = {
 // 	) => React.ReactElement;
 // };
 
-export default function TemplateDialogM<T>({
+export default function TemplateDialog<T>({
 	PenddingCallbackDialog,
 }: {
 	PenddingCallbackDialog: (
