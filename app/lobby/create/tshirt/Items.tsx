@@ -3,7 +3,7 @@ import {DraftType, ShirtProps} from "./props";
 import {InputConfirm} from "@/components/ConfirmComponent";
 import FocusElement from "@/libs/FocusElement";
 import TemplateDialog from "@/libs/TemplateDialog";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 
 export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 	<div key={index}>
@@ -84,13 +84,17 @@ type Value = {
 
 const ValueHandler = TemplateDialog<ShirtProps>({
 	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
-		const [amont, setAmont] = useState(element.amont);
+		const [amont, setAmont] = useState<number | string>(element.amont);
 		function onclick() {
 			// handle respone data
 			props.resault(amont);
 
 			// close dialog
 			setIsOpen(false);
+		}
+
+		function onchange(e: FormEvent<HTMLInputElement>) {
+			// setIsOpen(e.target.va)
 		}
 		return (
 			<div className="grid grid-cols-1 text-center py-3">
@@ -104,11 +108,13 @@ const ValueHandler = TemplateDialog<ShirtProps>({
 						type="text"
 						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2"
 						value={amont}
-						onChange={(e) => setAmont(parseInt(e.target.value))}
+						onChange={(e) => setAmont(e.target.value)}
 					/>
 				</div>
 				<div className="flex gap-3 justify-center pt-2">
-					<button className="border border-lime-400 text-lime-400 px-3 py-2 rounded">
+					<button
+						className="border border-lime-400 text-lime-400 px-3 py-2 rounded"
+						onClick={() => setIsOpen(false)}>
 						X
 					</button>
 					<button
