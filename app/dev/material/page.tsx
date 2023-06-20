@@ -3,16 +3,7 @@ import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
 import {MaterialType} from "../PropType";
 import {Dialog} from "@headlessui/react";
 import TemplateDialog from "@/libs/TemplateDialog";
-// import {
-// 	Add,
-// 	AddIcCall,
-// 	AddIcCallOutlined,
-// 	ClearOutlined,
-// 	Close,
-// 	CreateOutlined,
-// 	MoreHorizOutlined,
-// 	Save,
-// } from "@mui/icons-material";
+import Button from "@/components/Button";
 
 type Props = {};
 
@@ -85,17 +76,13 @@ const ReadMaterialDetail = TemplateDialog<MaterialType>({
 				<div className="text-xl text-lime-400">"{element.name}"</div>
 				<div className="text-neutral-200/50">{element.description}</div>
 				<div className="flex justify-center pt-6 gap-2">
-					<button
-						className="px-2 py-1 border border-lime-400 text-lime-400"
-						onClick={() => setIsOpen(false)}>
+					<Button variant="secondary" onclick={() => setIsOpen(false)}>
 						x
-					</button>
+					</Button>
 
-					<button
-						className="px-2 py-1 border border-lime-400 text-lime-400"
-						onClick={() => onremove()}>
+					<Button variant="primary" onclick={() => onremove()}>
 						Remove
-					</button>
+					</Button>
 				</div>
 			</div>
 		);
@@ -143,19 +130,13 @@ const CreateMaterial = TemplateDialog({
 						onChange={(e) => onchange(e, "description")}
 						value={value.description}></textarea>
 				</div>
-				<div className="flex justify-center px3- py-2 gap-3">
-					<button
-						className="px-3 py-2 shadow border border-lime-400 text-lime-400 rounded"
-						onClick={() => setIsOpen(false)}>
-						{/* ยกเลิก */}
-						{/* <ClearOutlined /> */}X
-					</button>
-					<button
-						className="px-3 py-2 shadow bg-lime-400 text-neutral-800 rounded"
-						onClick={() => onsave()}>
-						{/* บันทึก */}
-						{/* <Save /> */} Save
-					</button>
+				<div className="flex justify-center ">
+					<Button variant="secondary" onclick={() => setIsOpen(false)}>
+						Close
+					</Button>
+					<Button variant="primary" onclick={() => onsave()}>
+						Save
+					</Button>
 				</div>
 			</div>
 		);

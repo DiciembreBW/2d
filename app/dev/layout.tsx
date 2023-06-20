@@ -8,11 +8,12 @@ type Props = {
 export default function DevLayout({children}: Props) {
 	return (
 		<div className="">
-			<div className="nav flex justify-between px-6 py-3 shadow bg-lime-400">
+			<div className="nav flex justify-between px-6 py-3 shadow bg-lime-400 text-neutral-800">
 				{/* left */}
 				<div className="flex gap-3">
 					<Link href="/dev/form">Form</Link>
 					<Link href="/dev/material">Material</Link>
+					<Link href="/dev/tokens">Token</Link>
 				</div>
 
 				<div>right</div>

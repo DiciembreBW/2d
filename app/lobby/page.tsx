@@ -11,10 +11,11 @@ export default function LobbyIndex({}: Props) {
 				{/* <CreateTemplate /> */}
 				<Link
 					href={`/lobby/create`}
-					className="w-6 h-6 border-2 rounded-full border-emerald-500
-						text-neutral-800 bg-emerald-500 flex items-center justify-center">
+					className="w-10 h-10 font-bold rounded-full 
+						text-neutral-800 bg-lime-400 flex items-center justify-center">
 					+
 				</Link>
+
 				<Link href={`/lobby/track`}>ติดตามผล</Link>
 			</div>
 

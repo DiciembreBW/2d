@@ -4,32 +4,30 @@ import {InputConfirm} from "@/components/ConfirmComponent";
 import FocusElement from "@/libs/FocusElement";
 import TemplateDialog from "@/libs/TemplateDialog";
 import {FormEvent, useState} from "react";
+import Button from "@/components/Button";
+import ListItem from "@/components/ListItem";
 
 export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
-	<div key={index}>
-		<div className="flex justify-between items-center px-3 py-6 border-b last:border-none">
-			<div className="flex gap-3 items-center">
-				<div className="text-3xl font-bold">{el.label}</div>
-				<div>
-					<div className="font-bold">รอบอก {el.chest} นิ้ว</div>
-					<div className="text-neutral-800/50 text-xs">ความยาว {el.length} นิ้ว</div>
-				</div>
+	<ListItem key={index} className="">
+		<div className="flex gap-2 items-center">
+			<div className=" basis-2/6 text-3xl font-bold text-neutral-50">
+				{el.label}
+			</div>
+			<div className="basis-4/6">
+				<div className="font-bold">รอบอก {el.chest} นิ้ว</div>
+				<div className="text-xs text-neutral-200/40">ความยาว {el.length} นิ้ว</div>
 			</div>
 
-			<div className="text-center">
-				<div className="flex h-8 items-center bg-neutral-100 border rounded-full">
+			<div className="text-center basis-auto ">
+				<div className="flex h-8 items-center bg-neutral-800 rounded-full">
 					<button
-						className="border h-full aspect-square rounded-full"
+						className="h-full aspect-square rounded-full"
 						onClick={() => {
 							features.stepDown("amont", index);
 						}}>
 						-
 					</button>
 					<div className="w-9">
-						{/* <StepperItem
-							el={el}
-							onchange={(value: number) => features.changeInt("amont", value, index)}
-						/> */}
 						<ValueHandler
 							resault={(value: number) => features.changeInt("amont", value, index)}
 							element={el}>
@@ -37,50 +35,15 @@ export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 						</ValueHandler>
 					</div>
 					<button
-						className="border h-full aspect-square rounded-full"
+						className="h-full aspect-square rounded-full"
 						onClick={() => features.stepUp("amont", index)}>
 						+
 					</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	</ListItem>
 ));
-
-// export const DraftHandler = TemplateArrayObject<DraftType>(
-// 	(el, index, feature) => (
-// 		<div key={index} className="shrink-0 basis-full snap-center snap-always">
-// 			<FocusElement
-// 				focus={el.status}
-// 				onclick={() => feature.select("status", index)}>
-// 				<>
-// 					<div>{index}</div>
-// 					<div>{el.name}</div>
-// 					<div>{JSON.stringify(el.status)}</div>
-// 				</>
-// 			</FocusElement>
-// 		</div>
-// 	)
-// );
-
-// Helper
-
-function StepperItem({el, onchange}: {el: ShirtProps; onchange: Function}) {
-	return (
-		<>
-			<InputConfirm
-				name="amont"
-				onConfirm={(v) => onchange(v)}
-				initialValue={el.amont}>
-				<div className="w-12 text-center bg-transparent">{el.amont}</div>
-			</InputConfirm>
-		</>
-	);
-}
-
-type Value = {
-	amont: number;
-};
 
 const ValueHandler = TemplateDialog<ShirtProps>({
 	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
@@ -93,8 +56,11 @@ const ValueHandler = TemplateDialog<ShirtProps>({
 			setIsOpen(false);
 		}
 
-		function onchange(e: FormEvent<HTMLInputElement>) {
+		function onchange(value: string) {
 			// setIsOpen(e.target.va)
+			const valueOfAmont = isNaN(parseInt(value)) ? "" : parseInt(value);
+
+			setAmont(valueOfAmont);
 		}
 		return (
 			<div className="grid grid-cols-1 text-center py-3">
@@ -105,23 +71,20 @@ const ValueHandler = TemplateDialog<ShirtProps>({
 				</div>
 				<div className="py-2">
 					<input
-						type="text"
-						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2"
+						type="number"
+						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2 focus:outline-none"
 						value={amont}
-						onChange={(e) => setAmont(e.target.value)}
+						onChange={(e) => onchange(e.target.value)}
 					/>
 				</div>
-				<div className="flex gap-3 justify-center pt-2">
-					<button
-						className="border border-lime-400 text-lime-400 px-3 py-2 rounded"
-						onClick={() => setIsOpen(false)}>
-						X
-					</button>
-					<button
-						className="bg-lime-400 text-neutral-800 px-3 py-2 rounded"
-						onClick={onclick}>
+				<div className="flex justify-center pt-2">
+					<Button variant="secondary" onclick={() => setIsOpen(false)}>
+						x
+					</Button>
+
+					<Button variant="primary" onclick={onclick}>
 						Save
-					</button>
+					</Button>
 				</div>
 			</div>
 		);

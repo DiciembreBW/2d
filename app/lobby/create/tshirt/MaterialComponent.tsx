@@ -23,7 +23,7 @@ function PreviewMaterial({list}: {list: MaterialType[]}) {
 				(el, index) =>
 					el.selected && (
 						<div key={index} className="flex justify-between py-3 px-3 gap-3">
-							<div className="bg-neutral-300 rounded-lg basis-1/2 aspect-square">
+							<div className="bg-neutral-800 rounded-lg basis-1/2 aspect-square">
 								<div className="flex justify-center items-center h-full ">img</div>
 							</div>
 
@@ -42,9 +42,9 @@ function MaterialHandle({list, setList}: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<>
-			<div className="flex justify-between py-3 px-6 border-b">
+			<div className="flex justify-between py-3 px-6 border-b-2 border-neutral-700/50">
 				<div>เนื้อผ้า</div>
-				<div className="ring-neutral-800 w-6 h-6 rounded-full flex justify-center items-center">
+				<div className="ring-neutral-600 ring w-6 h-6 rounded-full flex justify-center items-center">
 					<button className="font-bold text-xl" onClick={() => setIsOpen(true)}>
 						+
 					</button>
@@ -54,7 +54,7 @@ function MaterialHandle({list, setList}: Props) {
 				open={isOpen}
 				onClose={() => setIsOpen(true)}
 				className="relative z-50">
-				<div className="fixed inset-0 bg-neutral-50">
+				<div className="fixed inset-0 bg-neutral-600">
 					<Dialog.Panel className="flex overflow-x-auto snap-x snap-mandatory h-full">
 						<MaterialItems
 							lists={list}

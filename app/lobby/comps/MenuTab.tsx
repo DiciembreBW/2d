@@ -14,7 +14,7 @@ export default function MenuTab({}: Props) {
 					<ButtonTab>เสร็จสิ้น</ButtonTab>
 					<ButtonTab>ทั้งหมด</ButtonTab>
 				</Tab.List>
-				<Tab.Panels className="my-3 bg-neutral-50 rounded-xl shadow">
+				<Tab.Panels className="my-3 bg-neutral-700/50 rounded-xl shadow">
 					<Tab.Panel>
 						<ProcessItems />
 					</Tab.Panel>
@@ -33,7 +33,7 @@ function ButtonTab({children}: {children: React.ReactNode}) {
 			{({selected}) => (
 				<button
 					className={`mx-1 px-3 py-2
-					rounded-full shadow bg-neutral-100
+					rounded-full shadow bg-neutral-700/50
 					${selected ? "" : ""}`}>
 					{children}
 				</button>

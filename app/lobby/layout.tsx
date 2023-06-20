@@ -8,7 +8,7 @@ export default function LobbyLayout({children}: Props) {
 		<div>
 			<div
 				className="px-6 py-3 flex items-center
-			justify-between shadow mb-1 bg-neutral-50">
+			justify-between bg-lime-400 shadow text-neutral-800 mb-1">
 				<Link href={`/lobby`}>Logo</Link>
 				<div className="">
 					<div
