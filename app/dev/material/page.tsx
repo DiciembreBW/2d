@@ -34,11 +34,11 @@ export default function MaterialPage({}: Props) {
 				<div className="py-1 flex justify-between text-lime-400">
 					<div>Material</div>
 
-					<CreateMaterial resault={saveMaterial}>
+					{/* <CreateMaterial resault={saveMaterial} element={}>
 						<div className="ring ring-lime-400 rounded-full aspect-square w-6 flex justify-center items-center">
 							+
 						</div>
-					</CreateMaterial>
+					</CreateMaterial> */}
 				</div>
 
 				{materials.map((el, index) => (

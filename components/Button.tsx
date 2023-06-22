@@ -23,14 +23,14 @@ export default function Button(props: ButtonProps) {
 		return (
 			<SecondaryButton
 				props={props}
-				className="px-3 py-2 ring-inset ring-1  ring-lime-400 text-lime-400 rounded">
+				className="px-3 py-2 ring-inset ring-1  ring-lime-400 bg-slate-800 text-lime-400 rounded">
 				{props.children}
 			</SecondaryButton>
 		);
 
 	//  default variant
 	return (
-		<DefaultButton props={props} className="px-3 py-2 bg-neutral-700/50 rounded">
+		<DefaultButton props={props} className="px-3 py-2 bg-neutral-300 rounded">
 			{props.children}
 		</DefaultButton>
 	);

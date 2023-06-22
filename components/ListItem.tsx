@@ -12,7 +12,7 @@ export default function ListItem({
 }: ListItemProps) {
 	return (
 		<div
-			className={` bg-neutral-700/40 hover:bg-neutral-800 px-3 m-0.5 py-2  active:cursor-pointer select-none   ${className}`}
+			className={`px-3 py-2  cursor-pointer select-none   ${className}`}
 			// className={`bg-neutral-700/40 px-3 py-2 m-0.5 hover:bg-neutral-700/60 active:cursor-pointer`}
 			onClick={() => onclick && onclick()}>
 			{children}

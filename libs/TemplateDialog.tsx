@@ -5,9 +5,9 @@ import {useState} from "react";
 type PropsRenderJSX = {
 	children?: React.ReactNode;
 	resault: Function;
-	element?: any;
+	element: any;
 	index?: number;
-	penddingCallback?: Function;
+	// penddingCallback?: Function;
 	// responseValue: Function;
 };
 
@@ -55,14 +55,14 @@ export default function TemplateDialog<T>({
 	};
 }
 
-//  sample
-type Props = {name: string; element: any};
-function Template<T>(penddingCallback: (element: T) => React.ReactElement) {
-	return function RenderJSX(props: Props) {
-		return <>{penddingCallback(props.element)}</>;
-	};
-}
+// //  sample
+// type Props = {name: string; element: any};
+// function Template<T>(penddingCallback: (element: T) => React.ReactElement) {
+// 	return function RenderJSX(props: Props) {
+// 		return <>{penddingCallback(props.element)}</>;
+// 	};
+// }
 
-const Dummy = Template<MaterialType>((el) => {
-	return <>{el.name}</>;
-});
+// const Dummy = Template<MaterialType>((el) => {
+// 	return <>{el.name}</>;
+// });
