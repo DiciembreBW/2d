@@ -1,4 +1,6 @@
 import {
+	DocumentData,
+	DocumentReference,
 	DocumentSnapshot,
 	QueryDocumentSnapshot,
 	QuerySnapshot,
@@ -8,6 +10,7 @@ import {
 	getDoc,
 	getDocs,
 	getFirestore,
+	onSnapshot,
 	setDoc,
 } from "firebase/firestore";
 import {Id} from "@/libs/generate";
@@ -72,7 +75,7 @@ function getQueryDoc<T>(query: DocumentSnapshot): T {
 	return data;
 }
 
-export default function <T>({colName}: {colName: string}) {
+export default function Firebase<T>({colName}: {colName: string}) {
 	const colRef = collection(db, colName);
 
 	return {
@@ -89,6 +92,15 @@ export default function <T>({colName}: {colName: string}) {
 
 			// return docSnap.data();
 			return getQueryDoc(docSnap);
+		},
+
+		OnSnapShot: function <X>({docName}: {docName: string}, pendding: Function) {
+			const docRef = doc(db, colName + docName);
+			onSnapshot(docRef, (snap) => {
+				if (snap.exists()) {
+					pendding(snap.data());
+				}
+			});
 		},
 
 		// set doc

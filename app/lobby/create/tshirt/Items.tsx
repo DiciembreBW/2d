@@ -10,7 +10,7 @@ import ListItem from "@/components/ListItem";
 export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 	<ListItem key={index} className="">
 		<div className="flex gap-2 items-center">
-			<div className=" basis-2/6 text-3xl font-bold text-neutral-50">
+			{/* <div className=" basis-2/6 text-3xl font-bold text-neutral-50">
 				{el.label}
 			</div>
 			<div className="basis-4/6">
@@ -40,53 +40,53 @@ export const Shirts = TemplateArrayObject<ShirtProps>((el, index, features) => (
 						+
 					</button>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	</ListItem>
 ));
 
-const ValueHandler = TemplateDialog<ShirtProps>({
-	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
-		const [amont, setAmont] = useState<number | string>(element.amont);
-		function onclick() {
-			// handle respone data
-			props.resault(amont);
+// const ValueHandler = TemplateDialog<ShirtProps>({
+// 	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
+// 		const [amont, setAmont] = useState<number | string>(element.amont);
+// 		function onclick() {
+// 			// handle respone data
+// 			props.resault(amont);
 
-			// close dialog
-			setIsOpen(false);
-		}
+// 			// close dialog
+// 			setIsOpen(false);
+// 		}
 
-		function onchange(value: string) {
-			// setIsOpen(e.target.va)
-			const valueOfAmont = isNaN(parseInt(value)) ? "" : parseInt(value);
+// 		function onchange(value: string) {
+// 			// setIsOpen(e.target.va)
+// 			const valueOfAmont = isNaN(parseInt(value)) ? "" : parseInt(value);
 
-			setAmont(valueOfAmont);
-		}
-		return (
-			<div className="grid grid-cols-1 text-center py-3">
-				<div className="text-2xl">{element.label}</div>
-				<div className="text-neutral-200/50">
-					<div> รอบอก {element.chest} นิ้ว</div>
-					<div> ความยาว {element.length} นิ้ว</div>
-				</div>
-				<div className="py-2">
-					<input
-						type="number"
-						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2 focus:outline-none"
-						value={amont}
-						onChange={(e) => onchange(e.target.value)}
-					/>
-				</div>
-				<div className="flex justify-center pt-2">
-					<Button variant="secondary" onclick={() => setIsOpen(false)}>
-						x
-					</Button>
+// 			setAmont(valueOfAmont);
+// 		}
+// 		return (
+// 			<div className="grid grid-cols-1 text-center py-3">
+// 				<div className="text-2xl">{element.label}</div>
+// 				<div className="text-neutral-200/50">
+// 					<div> รอบอก {element.chest} นิ้ว</div>
+// 					<div> ความยาว {element.length} นิ้ว</div>
+// 				</div>
+// 				<div className="py-2">
+// 					<input
+// 						type="number"
+// 						className="p-2 bg-neutral-600/50 rounded text-lg text-center w-1/2 focus:outline-none"
+// 						value={amont}
+// 						onChange={(e) => onchange(e.target.value)}
+// 					/>
+// 				</div>
+// 				<div className="flex justify-center pt-2">
+// 					<Button variant="secondary" onclick={() => setIsOpen(false)}>
+// 						x
+// 					</Button>
 
-					<Button variant="primary" onclick={onclick}>
-						Save
-					</Button>
-				</div>
-			</div>
-		);
-	},
-});
+// 					<Button variant="primary" onclick={onclick}>
+// 						Save
+// 					</Button>
+// 				</div>
+// 			</div>
+// 		);
+// 	},
+// });

@@ -4,8 +4,8 @@ import {useState} from "react";
 
 type PropsRenderJSX = {
 	children?: React.ReactNode;
-	resault: Function;
-	element: any;
+	handle: Function;
+	element?: any;
 	index?: number;
 	// penddingCallback?: Function;
 	// responseValue: Function;
@@ -36,13 +36,17 @@ export default function TemplateDialog<T>({
 		// penddingCallbackDialog();
 		return (
 			<>
-				<button onClick={() => setIsOpen(true)}>{props.children}</button>
+				<div
+					className="item hover:cursor-pointer select-none"
+					onClick={() => setIsOpen(true)}>
+					{props.children}
+				</div>
 
 				<Dialog open={isOpen} onClose={() => setIsOpen(false)}>
 					<div className="wrapper relative z-50">
 						<Dialog.Panel className="fixed inset-0 flex justify-center items-center bg-neutral-800">
 							<div className="wrapper">
-								{/* pendding dialog */}
+								{/* pendding dialog */}{" "}
 								<div className="px-3 py-2 bg-neutral-700/50 rounded text-neutral-200">
 									{PenddingCallbackDialog(props, props.element, [isOpen, setIsOpen])}
 								</div>
@@ -54,15 +58,3 @@ export default function TemplateDialog<T>({
 		);
 	};
 }
-
-// //  sample
-// type Props = {name: string; element: any};
-// function Template<T>(penddingCallback: (element: T) => React.ReactElement) {
-// 	return function RenderJSX(props: Props) {
-// 		return <>{penddingCallback(props.element)}</>;
-// 	};
-// }
-
-// const Dummy = Template<MaterialType>((el) => {
-// 	return <>{el.name}</>;
-// });

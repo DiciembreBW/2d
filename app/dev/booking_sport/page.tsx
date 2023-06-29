@@ -2,6 +2,7 @@
 import Button from "@/components/Button";
 import TemplateDialog from "@/libs/TemplateDialog";
 import TemplateEvent from "@/libs/TemplateEvent";
+import FlexEvent from "@/libs/TemplateFlexEvent";
 import React, {useEffect, useState} from "react";
 
 type Props = {};
@@ -10,29 +11,31 @@ export default function BookingSport({}: Props) {
 	return (
 		<div>
 			BookingSport
-			<Stadiums />
+			<StadiumItem name="1" time="เวลา 17.30 - 18.25 น." />
+			<StadiumItem name="2" time="เวลา 18.05 - 18.25 น." />
+			<StadiumItem name="1" time="เวลา 18.30 - 18.55 น." />
+			<StadiumItem name="2" time="เวลา 19.00 - 19.25 น." />
+			<StadiumItem name="1" time="เวลา 19.30 - 19.45 น." />
 		</div>
 	);
 }
 
-function Stadiums() {
-	return (
-		<div>
-			<StadiumItem name="1" />
-			{/* <StadiumItem name="2" /> */}
-		</div>
-	);
-}
-
-function StadiumItem({name}: {name: string}) {
+function StadiumItem({name, time}: {name: "1" | "2"; time: string}) {
 	return (
 		<div className="px-3 py-2 rounded-lg my-6">
-			<div className="font-bold text-center">Stadium {name}</div>
-			{/* <div className="flex justify-center gap-6 items-center"> */}
-			<Team name="A" />
-			{/* <span className="text-lime-400">VS</span> */}
-			{/* <Team name="B" /> */}
-			{/* </div> */}
+			<div className="font-bold text-center">สนาม {name}</div>
+			<div className="text-xs text-center"> {time} </div>
+			<div className="flex items-center gap-2 ">
+				<div className="basis-2/4">
+					<Team name="B" />
+				</div>
+				<div className="font-mono basis-auto">
+					<i>VS</i>
+				</div>
+				<div className="basis-2/4">
+					<Team name="B" />
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -40,292 +43,113 @@ function StadiumItem({name}: {name: string}) {
 type TeamType = {
 	name?: string;
 	position: "PL" | "GK";
-	booking: boolean;
+};
+
+type OrderType = {
+	author: string;
+	line: string;
+	tel: string;
 };
 
 function Team({name}: {name: string}) {
 	const [players, setPlayer] = useState<TeamType[]>([
-		{position: "PL", booking: false},
-		{position: "PL", booking: false},
-		{position: "PL", booking: false},
-		{position: "PL", booking: true},
-		{position: "PL", booking: false},
-		{position: "PL", booking: false},
-		{position: "GK", booking: false},
+		{position: "PL", name: ""},
+		{position: "PL", name: ""},
+		{position: "PL", name: ""},
+		{position: "PL", name: ""},
+		{position: "PL", name: ""},
+		{position: "PL", name: ""},
+		{position: "GK", name: ""},
 	]);
 	// return <TeamHandler products={players} />;
 
-	function Booking(index: number) {
-		// console.log(index);
-
-		// console.log(a);
-		setPlayer(
-			players.map((item, item_index) => {
-				if (index == item_index) {
-					item.booking = !item.booking;
+	function Booking(index: number, name: string) {
+		// handle name
+		const value = players.map((item, item_index) => {
+			if (item_index == index) {
+				if (item.name !== "") {
+					item.name = "";
+					return item;
 				}
-				return item;
-			})
-		);
+
+				if (item.name == "") {
+					// console.log(item.name);
+					item.name = name;
+				}
+			}
+
+			return item;
+		});
+
+		setPlayer(value);
 	}
+
+	function Clear() {
+		const value = players.map((item) => {
+			item.name = "";
+			return item;
+		});
+
+		setPlayer(value);
+	}
+
+	function All() {
+		const value = players.map((item) => {
+			item.name = "OK";
+			return item;
+		});
+
+		setPlayer(value);
+	}
+
 	return (
-		<TeamV2 products={players} onEvent={Booking} />
-		// <div className="py-2 w-full ">
-		// 	<div className="text-center font-bold py-2 text-neutral-200">
-		// 		Team : {name}
-		// 	</div>
-		// 	<div className="flex justify-center flex-wrap gap-2">
-		// 		{players.map((player, index) => (
-		// 			<div key={index} className="basis-1/4">
-		// 				{player.booking && (
-		// 					<div
-		// 						key={index}
-		// 						className="text-neutral-800 bg-lime-400 text-center
-		// 					 hover:cursor-pointer
-		// 			 	active:bg-neutral-800 select-none"
-		// 						onClick={() => Booking(index)}>
-		// 						{JSON.stringify(player.booking)}
-		// 					</div>
-		// 				)}
-		// 				{!player.booking && (
-		// 					<div
-		// 						className="text-neutral-300 bg-neutral-700/60 text-center
-		// 					 hover:bg-neutral-700/30 hover:cursor-pointer
-		// 			 	active:bg-neutral-800 select-none"
-		// 						onClick={() => Booking(index)}>
-		// 						{JSON.stringify(player.booking)}
-		// 					</div>
-		// 				)}
-		// 			</div>
-		// 		))}
-		// 	</div>
-		//  </div>
+		<div>
+			<div className="flex flex-wrap justify-center gap-2 p-3 m-2">
+				{players.map((player, index) => (
+					<Seat
+						key={index}
+						position={player.position}
+						name={player.name}
+						onclick={() => Booking(index, "woradet")}
+					/>
+				))}
+			</div>
+			{/* <div className="flex gap-2 justify-center">
+				<div onClick={() => All()}>เลือกทั้งหมด</div>
+				<div onClick={() => Clear()}>Clear</div>
+			</div> */}
+			{/* <div>{FlexEvent<OrderType>()}</div> */}
+		</div>
 	);
 }
 
-const TeamV2 = TemplateEvent<TeamType>({
-	ShowItem: (el, bucktes, on, index) => (
-		<>
-			<HandleItem
-				element={el}
-				resault={() => {
-					on.onEvent(index);
-				}}>
-				<div className="ring basis-1/4 px-3 py-2">{JSON.stringify(el.booking)}</div>
-			</HandleItem>
-		</>
-	),
-	Bucket: (el, index, buckets, on) => {
-		return <>Bucket</>;
-	},
-	Confirm: () => <>Confirm</>,
-});
-
-function ShowItemJSX() {
-	return <></>;
-}
-
-const HandleItem = TemplateDialog<TeamType>({
-	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
-		function onsave() {
-			// console.log(element);
-			props.resault();
-
-			setIsOpen(false);
-		}
+function Seat({
+	position,
+	name,
+	onclick,
+}: {
+	name?: string;
+	position: string;
+	onclick: Function;
+}) {
+	if (name)
 		return (
-			<div className="">
-				<div className="flex gap-2">
-					<Button variant="secondary" onclick={() => setIsOpen(false)}>
-						x
-					</Button>
-					<Button variant="primary" onclick={onsave}>
-						Save
-					</Button>
-				</div>
+			<div
+				className="basis-1/4 aspect-square rounded-full flex justify-center items-center text-neutral-200
+						hover: cursor-pointer bg-neutral-800 hover:bg-neutral-700 active:shadow select-none"
+				onClick={() => onclick()}>
+				{name && "OK"}
 			</div>
 		);
-	},
-});
-// function Team({name}: {name: string}) {
-// 	const [players, setPlayer] = useState<TeamType[]>([
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: true},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "GK", booking: false},
-// 	]);
-// 	// return <TeamHandler products={players} />;
 
-// 	function Booking(index: number) {
-// 		// console.log(index);
-
-// 		// console.log(a);
-// 		setPlayer(
-// 			players.map((item, item_index) => {
-// 				if (index == item_index) {
-// 					item.booking = !item.booking;
-// 				}
-// 				return item;
-// 			})
-// 		);
-// 	}
-// 	return (
-// 		<div className="py-2 w-full ">
-// 			<div className="text-center font-bold py-2 text-neutral-200">
-// 				Team : {name}
-// 			</div>
-// 			<div className="flex justify-center flex-wrap gap-2">
-// 				{players.map((player, index) => (
-// 					<div key={index} className="basis-1/4">
-// 						{player.booking && (
-// 							<div
-// 								key={index}
-// 								className="text-neutral-800 bg-lime-400 text-center
-// 							 hover:cursor-pointer
-// 					 	active:bg-neutral-800 select-none"
-// 								onClick={() => Booking(index)}>
-// 								{JSON.stringify(player.booking)}
-// 							</div>
-// 						)}
-// 						{!player.booking && (
-// 							<div
-// 								className="text-neutral-300 bg-neutral-700/60 text-center
-// 							 hover:bg-neutral-700/30 hover:cursor-pointer
-// 					 	active:bg-neutral-800 select-none"
-// 								onClick={() => Booking(index)}>
-// 								{JSON.stringify(player.booking)}
-// 							</div>
-// 						)}
-
-// 						{/* <div>{}</div> */}
-// 					</div>
-// 				))}
-// 			</div>
-// 		</div>
-// 	);
-// }
-
-// ********************************************************
-
-// const TeamHandler = TemplateEvent<TeamType>({
-// 	ShowItem: (el, bucket, on) => (
-// 		<HandlerPlayer
-// 			resault={(name: string) => {
-// 				if (bucket.find((item) => item.name == name)) {
-// 					on.Replace2((item) => {
-// 						item.booking = true;
-// 						item.name = name;
-// 						return item;
-// 					});
-
-// 					console.log("b");
-// 					return;
-// 				}
-
-// 				console.log("a");
-// 				on.Create({
-// 					...el,
-// 					name: name,
-// 					booking: true,
-// 				});
-// 			}}
-// 			element={el}>
-// 			<div className="flex flex-wrap justify-center">
-// 				<div className={`px-3 py-2 bg-emerald-700 rounded m-1 `}>
-// 					<div className="">{el.name}</div>
-// 					<div className="">{el.position}</div>
-// 					<div>{JSON.stringify(el.booking)}</div>
-// 				</div>
-// 			</div>
-// 		</HandlerPlayer>
-// 	),
-// 	Bucket: (el, index, buckets, on) => (
-// 		<div className="flex justify-between  gap-2 p-2 ring">
-// 			<div>
-// 				<div>Name : {el.name}</div>
-// 				<div>Position : {el.position}</div>
-// 				<div>Status : {JSON.stringify(el.booking)}</div>
-// 			</div>
-// 			<div>
-// 				<Button variant="primary" onclick={() => on.Remove(index)}>
-// 					-
-// 				</Button>
-// 			</div>
-// 		</div>
-// 	),
-// 	Confirm: (buckets) => <></>,
-// });
-
-// const HandlerPlayer = TemplateDialog<TeamType>({
-// 	PenddingCallbackDialog: (props, element, [isOpen, setIsOpen]) => {
-// 		const [text, setText] = useState<string>("");
-// 		function onclick() {
-// 			props.resault(text);
-// 			setIsOpen(false);
-// 			// console.log("pass");
-// 		}
-// 		return (
-// 			<div className="grid grid-cols-1">
-// 				<div>contetn</div>
-
-// 				<div>
-// 					<input
-// 						type="text"
-// 						value={text}
-// 						onChange={(e) => setText(e.target.value)}
-// 						className="bg-transparent"
-// 					/>
-// 				</div>
-// 				<div className="flex justify-center">
-// 					<Button variant="secondary" onclick={() => setIsOpen(false)}>
-// 						X
-// 					</Button>
-
-// 					<Button variant="primary" onclick={() => onclick()}>
-// 						Save
-// 					</Button>
-// 				</div>
-// 			</div>
-// 		);
-// 	},
-// });
-
-// type TeamType = {
-// 	position: "PL" | "GK";
-// 	booking: boolean;
-// };
-
-// function Team({name}: {name: string}) {
-// 	const [players, setPlayer] = useState<TeamType[]>([
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: true},
-// 		{position: "PL", booking: false},
-// 		{position: "PL", booking: false},
-// 		{position: "GK", booking: false},
-// 	]);
-// 	return (
-// 		<div className="py-2">
-// 			<div className="text-center">Team : {name}</div>
-// 			{/* <div className="text-center font-bold">Player 1 - 7</div> */}
-// 			<div className="flex flex-wrap justify-center">
-// 				{players.map((player, index) => (
-// 					<div key={index} className={`px-3 py-2 bg-emerald-700 rounded m-1 `}>
-// 						<div className="">{player.position}</div>
-// 						<div>{JSON.stringify(player.booking)}</div>
-// 					</div>
-// 				))}
-// 			</div>
-// 		</div>
-// 	);
-// }
-
-// TemplateEvent({
-// 	ShowItem: (el, bucket, on) => <div></div>,
-// 	Bucket: (el, index, buckets, on) => <></>,
-// 	Confirm: (buckets) => <></>,
-// });
+	return (
+		<div
+			className="ring-1 ring-neutral-800 basis-1/4 aspect-square rounded-full flex justify-center items-center
+						hover: cursor-pointer hover:bg-neutral-300 active:shadow select-none
+						"
+			onClick={() => onclick()}>
+			{position}
+			{name && name}
+		</div>
+	);
+}
