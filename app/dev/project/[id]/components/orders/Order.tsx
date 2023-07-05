@@ -14,7 +14,7 @@ export default function Order({}: Props) {
 				<OrderItem name="Genrial">แบบร่าง</OrderItem>
 				<OrderItem name="genrail Lot-2">แบบร่าง</OrderItem>
 				<OrderItem name="Lester Zimmeran">ดำเนินการผลิต</OrderItem>
-				<OrderItem>กำลังจัดส่ง</OrderItem>
+				<OrderItem name="Horr of titlad">กำลังจัดส่ง</OrderItem>
 			</div>
 		</div>
 	);
