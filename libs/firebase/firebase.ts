@@ -104,11 +104,13 @@ export default function Firebase<T>({colName}: {colName: string}) {
 		},
 
 		// set doc
-		SetDoc: function ({data, id}: {data: T; id?: string}): void {
+		SetDoc: function ({data, id}: {data: T; id?: string}) {
 			let newData = {id: id || Id(8), ...data};
 
 			const docRef = doc(db, colName + "/" + newData.id);
 			setDoc(docRef, newData);
+
+			return newData.id;
 		},
 
 		// remove

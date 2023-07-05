@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/about.js", "components/ModelShirt.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "pages/about.js", "components/ModelShirt.jsx", "app/dev/project/dawd"],
   "exclude": ["node_modules"]
 }
