@@ -6,7 +6,7 @@ export default function Order({}: Props) {
 	return (
 		<div>
 			<div className="flex justify-between font-bold px-3 py-2 item-center text-xl">
-				<div>Order</div>
+				<div>คำสั่งซื้อ</div>
 				<div>+</div>
 			</div>
 

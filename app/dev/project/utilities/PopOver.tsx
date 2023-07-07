@@ -11,13 +11,14 @@ export default function UtilitiePopover<T>(
 		element: T;
 	}) {
 		return (
-			<Popover className="relative flex flex-col items-end">
+			<Popover className="flex items-end flex-col">
 				<Popover.Button className="">{children}</Popover.Button>
-				<Popover.Panel className="fixed z-50 mt-3">
-					{/* <div className="inset-0 grid grid-cols-1 px-3 py-2 mt-3 bg-neutral-100 rounded"> */}
-					{PenddingCallback({element})}
-					{/* </div> */}
-				</Popover.Panel>
+				<div className="relative">
+					{/* <Popover.Panel className="mt-3 mr-3 fixed right-0 bg-neutral-100 rounded"> */}
+					<Popover.Panel className="fixed w-full right-0  bg-neutral-100 rounded">
+						{PenddingCallback({element})}
+					</Popover.Panel>
+				</div>
 			</Popover>
 		);
 	};
